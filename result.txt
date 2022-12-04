@@ -1,0 +1,140 @@
+FUNCTION
+	BEGIN
+		int INT
+		main IDENTIF
+		( LBRACKET
+		) RBRACKET
+		{ LBRACE
+	DESCRIPTIONS
+		DESCR
+			int INT
+			VARLIST
+				a IDENTIF
+				, COMMA
+				b IDENTIF
+			; END_SYMBOL
+		DESCR
+			int INT
+			VARLIST
+				d IDENTIF
+				, COMMA
+				i IDENTIF
+				, COMMA
+				j IDENTIF
+			; END_SYMBOL
+	OPERATORS
+		OP
+			a IDENTIF
+			= ASSIGN
+			EXPR
+				SIMPLE_EXPR
+					( LBRACKET
+					EXPR
+						SIMPLE_EXPR
+							a IDENTIF
+						+ PLUS
+						SIMPLE_EXPR
+							( LBRACKET
+							EXPR
+								SIMPLE_EXPR
+									5 NUMBER
+								+ PLUS
+								SIMPLE_EXPR
+									10 NUMBER
+							) RBRACKET
+					) RBRACKET
+			; END_SYMBOL
+		OP
+			b IDENTIF
+			= ASSIGN
+			EXPR
+				SIMPLE_EXPR
+					b IDENTIF
+				- MINUS
+				SIMPLE_EXPR
+					2 NUMBER
+				+ PLUS
+				SIMPLE_EXPR
+					a IDENTIF
+			; END_SYMBOL
+		OP
+			for FOR
+			( LBRACKET
+			i IDENTIF
+			= ASSIGN
+			EXPR
+				SIMPLE_EXPR
+					0 NUMBER
+			; END_SYMBOL
+			CONDITION
+				EXPR
+					SIMPLE_EXPR
+						i IDENTIF
+				<= LESS_OR_EQUAL
+				EXPR
+					SIMPLE_EXPR
+						100 NUMBER
+			; END_SYMBOL
+			EXPR
+				SIMPLE_EXPR
+					i IDENTIF
+				+ PLUS
+				SIMPLE_EXPR
+					1 NUMBER
+			) RBRACKET
+			{ LBRACE
+			OPERATORS
+				OP
+					for FOR
+					( LBRACKET
+					j IDENTIF
+					= ASSIGN
+					EXPR
+						SIMPLE_EXPR
+							i IDENTIF
+					; END_SYMBOL
+					CONDITION
+						EXPR
+							SIMPLE_EXPR
+								j IDENTIF
+						<= LESS_OR_EQUAL
+						EXPR
+							SIMPLE_EXPR
+								20 NUMBER
+					; END_SYMBOL
+					EXPR
+						SIMPLE_EXPR
+							j IDENTIF
+						+ PLUS
+						SIMPLE_EXPR
+							2 NUMBER
+					) RBRACKET
+					{ LBRACE
+					OPERATORS
+						OP
+							d IDENTIF
+							= ASSIGN
+							EXPR
+								SIMPLE_EXPR
+									a IDENTIF
+								+ PLUS
+								SIMPLE_EXPR
+									b IDENTIF
+							; END_SYMBOL
+					} RBRACE
+				OP
+					a IDENTIF
+					= ASSIGN
+					EXPR
+						SIMPLE_EXPR
+							a IDENTIF
+						- MINUS
+						SIMPLE_EXPR
+							1 NUMBER
+					; END_SYMBOL
+			} RBRACE
+	END
+		return RETURN
+		d IDENTIF
+		; END_SYMBOL
+		} RBRACE
