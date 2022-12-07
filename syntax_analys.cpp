@@ -32,7 +32,7 @@ bool synt_analysator::Begin(syntax_tree &t) {
 	if (elem.type != "INT") {
 		err = lexemes.pos;
 		std::cout << "\nОшибка! Ожидался тип метода.\n" << " строка " << err.str_number
-			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
+			<< "позиция " << err.position - elem.lexem.size() << "\n";
 		return 0;
 	}
 	t.add_node_tree(elem.lex_plus_typ(), "BEGIN");
@@ -84,7 +84,6 @@ bool synt_analysator::Descriptions(syntax_tree& t) {
 			return 1;
 		}
 		lexemes.comeback_pos(fin, elem.lexem);
-		/*tree.add_node_tree("DESCR", "DESCRIPTIONS");*/
 		temp.set_root("DESCR");
 		if (!Descr(temp))
 			return 0;
@@ -138,7 +137,7 @@ bool synt_analysator::Varlist(syntax_tree& t) {
 		}
 		t.add_node_tree(elem.lex_plus_typ(), "VARLIST");
 		if (!Varlist(t))
-			return 0;//!!!!!!!!!!!!!!!!!!
+			return 0;
 	}
 	return 1;
 }
@@ -313,7 +312,7 @@ bool synt_analysator::Condition(syntax_tree& t) {
 	t.add_node_tree(elem.lex_plus_typ(), "CONDITION");
 	temp.uborshica();
 	temp.set_root("EXPR");
-	if (!Expr(temp))//!!!!!!!!!!!!!!!!
+	if (!Expr(temp))
 		return 0;
 	t.add_node_tree("EXPR", "CONDITION");
 	t.insert_tree(temp, "EXPR");
@@ -334,7 +333,7 @@ bool synt_analysator::Expr(syntax_tree& t) {
 		return 1;
 	}
 	t.add_node_tree(elem.lex_plus_typ(), "EXPR");
-	if (!Expr(t))//!!!!!!!!!!!!!!!!!!!
+	if (!Expr(t))
 		return 0;
 	return 1;
 }
@@ -357,7 +356,6 @@ bool synt_analysator::S1mpleExpr(syntax_tree& t) {
 				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
 			return 0;
 		}
-		//t.add_node_tree(elem.lex_plus_typ(), "SIMPLE_EXPR");
 	}
 	else if (elem.type != "IDENTIF" && elem.type != "NUMBER") {
 		err = lexemes.pos;
@@ -408,356 +406,3 @@ bool synt_analysator::End(syntax_tree& t) {
 bool synt_analysator::analys(syntax_tree& t) {
 	return Function(t);
 }
-
-//bool synt_analysator::Function(syntax_tree& t) {
-//	tree.add_node_tree("BEGIN", "FUNCTION");
-//	if (!Begin(fin))
-//		return 0;
-//	tree.add_node_tree("DESCRIPTIONS", "FUNCTION");
-//	if (!Descriptions(fin))
-//		return 0;
-//	tree.add_node_tree("OPERATORS", "FUNCTION");
-//	if (!Operators(fin))
-//		return 0;
-//	tree.add_node_tree("END", "FUNCTION");
-//	if (!End(fin))
-//		return 0;
-//	return (lexemes.parse(fin, table).type == "NOT_DEFINED");
-//}
-//
-//bool synt_analysator::Begin(std::ifstream& fin) {
-//	info elem = lexemes.parse(fin, table);
-//	if (elem.type != "INT") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался тип метода.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "BEGIN");
-//	elem = lexemes.parse(fin, table);
-//	if (elem.type != "IDENTIF") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидалось имя метода.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "BEGIN");
-//	elem = lexemes.parse(fin, table);
-//	if (elem.type != "LBRACKET") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался символ '('.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "BEGIN");
-//	elem = lexemes.parse(fin, table);
-//	if (elem.type != "RBRACKET") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался символ ')'.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "BEGIN");
-//	elem = lexemes.parse(fin, table);
-//	if (elem.type != "LBRACE") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался символ '{'.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "BEGIN");
-//	return 1;
-//}
-//
-//bool synt_analysator::Descriptions(std::ifstream& fin) {
-//	tree.add_node_tree("DESCR", "DESCRIPTIONS");
-//	if (!Descr(fin))
-//		return 0;
-//	while (true) {
-//		info elem = lexemes.parse(fin, table);
-//		if (elem.type != "INT") {
-//			lexemes.comeback_pos(fin, elem.lexem);
-//			return 1;
-//		}
-//		lexemes.comeback_pos(fin, elem.lexem);
-//		tree.add_node_tree("DESCR", "DESCRIPTIONS");
-//		if (!Descr(fin))
-//			return 0;
-//
-//	}
-//	return 1;
-//}
-//
-//bool synt_analysator::Descr(std::ifstream& fin) {
-//	info elem = lexemes.parse(fin, table);
-//	if (elem.type != "INT") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался тип переменной.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "DESCR");
-//	tree.add_node_tree("VARLIST", "DESCR");
-//	if (!Varlist(fin))
-//		return 0;
-//	elem = lexemes.parse(fin, table);
-//	if (elem.type != "END_SYMBOL") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался символ ';'.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "DESCR");
-//	return 1;
-//}
-//
-//bool synt_analysator::Varlist(std::ifstream& fin) {
-//	info elem = lexemes.parse(fin, table);
-//	if (elem.type != "IDENTIF") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидалось название переменной.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "VARLIST");
-//	while (true) {
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "COMMA") {
-//			lexemes.comeback_pos(fin, elem.lexem);
-//			return 1;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "VARLIST");
-//		if (!Varlist(fin))
-//			return 0;
-//	}
-//	return 1;
-//}
-//
-//bool synt_analysator::Operators(std::ifstream& fin) {
-//	tree.add_node_tree("OP", "OPERATORS");
-//	if (!Op(fin))
-//		return 0;
-//	while (true) {
-//		info elem = lexemes.parse(fin, table);
-//		if (elem.type != "IDENTIF" && elem.type != "FOR") {
-//			lexemes.comeback_pos(fin, elem.lexem);
-//			return 1;
-//		}
-//		lexemes.comeback_pos(fin, elem.lexem);
-//		tree.add_node_tree("OP", "OPERATORS");
-//		if (!Op(fin))
-//			return 0;
-//	}
-//	return 1;
-//}
-//
-//bool synt_analysator::Op(std::ifstream& fin) {
-//	info elem = lexemes.parse(fin, table);
-//	if (elem.type == "IDENTIF") {
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "ASSIGN") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ '='.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		tree.add_node_tree("EXPR", "OP");
-//		if (!Expr(fin))
-//			return 0;
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "END_SYMBOL") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ ';'.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//	}
-//	else if (elem.type == "FOR") {
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "LBRACKET") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ '('.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "IDENTIF") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидалось название переменной.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "ASSIGN") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ '='.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		tree.add_node_tree("EXPR", "OP");
-//		if (!Expr(fin))
-//			return 0;
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "END_SYMBOL") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ ';'.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		tree.add_node_tree("CONDITION", "OP");
-//		if (!Condition(fin))
-//			return 0;
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "END_SYMBOL") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ ';'.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		tree.add_node_tree("EXPR", "OP");
-//		if (!Expr(fin))
-//			return 0;
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "RBRACKET") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ ')'.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "LBRACE") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ '{'.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//		tree.add_node_tree("OPERATORS", "OP");
-//		if (!Operators(fin))
-//			return 0;
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "RBRACE") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ '}'.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "OP");
-//	}
-//	else {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался оператор.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	return 1;
-//}
-//
-//bool synt_analysator::Condition(std::ifstream& fin) {
-//	tree.add_node_tree("EXPR", "CONDITION");
-//	if (!Expr(fin))
-//		return 0;
-//	info elem = lexemes.parse(fin, table);
-//	if (elem.type != "EQUAL" && elem.type != "NON_EQUAL" && elem.type != "LESS_OR_EQUAL" &&
-//		elem.type != "GREATER_OR_EQUAL" && elem.type != "GREATER" && elem.type != "LESS") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидалась операция сравнения.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "CONDITION");
-//	tree.add_node_tree("EXPR", "CONDITION");
-//	if (!Expr(fin))
-//		return 0;
-//	return 1;
-//}
-//
-//bool synt_analysator::Expr(std::ifstream& fin) {
-//	tree.add_node_tree("SIMPLE_EXPR", "EXPR");
-//	if (!S1mpleExpr(fin))
-//		return 0;
-//	info elem = lexemes.parse(fin, table);
-//	if (elem.type != "PLUS" && elem.type != "MINUS") {
-//		lexemes.comeback_pos(fin, elem.lexem);
-//		return 1;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "EXPR");
-//	if (!Expr(fin))
-//		return 0;
-//	return 1;
-//}
-//
-//bool synt_analysator::S1mpleExpr(std::ifstream& fin) {
-//	info elem = lexemes.parse(fin, table);
-//	if (elem.type == "LBRACKET") {
-//		tree.add_node_tree(elem.lex_plus_typ(), "SIMPLE_EXPR");
-//		tree.add_node_tree("EXPR", "SIMPLE_EXPR");
-//		if (!Expr(fin))
-//			return 0;
-//		elem = lexemes.parse(fin, table);
-//		if (elem.type != "RBRACKET") {
-//			err = lexemes.pos;
-//			std::cout << "\nОшибка! Ожидался символ ')'.\n" << " строка " << err.str_number
-//				<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//			return 0;
-//		}
-//		tree.add_node_tree(elem.lex_plus_typ(), "SIMPLE_EXPR");
-//	}
-//	else if (elem.type != "IDENTIF" && elem.type != "NUMBER") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидалось название переменной или число.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "SIMPLE_EXPR");
-//	return 1;
-//}
-//
-//bool synt_analysator::End(std::ifstream& fin) {
-//	info elem = lexemes.parse(fin, table);
-//	if (elem.type != "RETURN") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался return.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "END");
-//	elem = lexemes.parse(fin, table);
-//	if (elem.type != "IDENTIF") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидалось название переменной.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "END");
-//	elem = lexemes.parse(fin, table);
-//	if (elem.type != "END_SYMBOL") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался символ ';'.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "END");
-//	elem = lexemes.parse(fin, table);
-//	if (elem.type != "RBRACE") {
-//		err = lexemes.pos;
-//		std::cout << "\nОшибка! Ожидался символ '}'.\n" << " строка " << err.str_number
-//			<< "\ позиция" << err.position - elem.lexem.size() << "\n";
-//		return 0;
-//	}
-//	tree.add_node_tree(elem.lex_plus_typ(), "END");
-//	return 1;
-//}
-//
-//bool synt_analysator::analys(std::ifstream& fin) {
-//	return Function(fin);
-//}

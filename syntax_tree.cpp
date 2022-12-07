@@ -13,11 +13,6 @@ void syntax_tree::add_node_tree(std::string data, std::string vin_disel, node &u
 		uzel->prinyatie_v_semju(data, uzel);
 	else
 		for (size_t i = 0; i < uzel->get_childs().size(); i++) {
-			/*if (i != uzel->get_childs().size() - 1) {
-				if (uzel->get_childs()[i]->get_field() == "VARLIST" && uzel->get_childs()[i + 1]->get_field() == "; END_SYMBOL")
-					continue;
-			}*/
-
 			add_node_tree(data, vin_disel, uzel->get_childs()[i]);
 		}
 }
@@ -62,36 +57,6 @@ void syntax_tree::print(std::ofstream& fout, node uzel, int space) {
 		print(fout, elem, space + 1);
 }
 
-//הכÿ נמהטעוכÿ ÎÐ ט סûםא ÅÊÑÏÐ
-bool syntax_tree::gg(node& uzel) {
-	for (size_t i = 0; i < uzel->get_childs().size(); i++) {
-		if (i != uzel->get_childs().size() - 1) {
-			if (uzel->get_childs()[i]->get_field() == "EXPR" && uzel->get_childs()[i + 1]->get_field() == "; END_SYMBOL")
-				return 1;
-		}
-	}
-	return 0;
-}
-bool syntax_tree::checker_insert(std::string str, node& uzel) {
-	if (uzel->get_field() != str) {
-		for (auto& elem : uzel->get_childs())
-			checker_insert(str, elem);
-	}
-	else {
-		if (uzel->get_field() == "DESCR") {
-			for (auto& elem : uzel->get_childs())
-				if (elem->get_field() == "; END_SYMBOL")
-					return 1;
-		}
-		if (uzel->get_field() == "OP") {
-			for (auto& elem : uzel->get_childs())
-				if (elem->get_field() == "; END_SYMBOL")
-					return 1;
-		}
-	}
-
-	return 0;
-}
 
 
 

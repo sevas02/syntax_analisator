@@ -47,9 +47,6 @@ private:
 	void insert_sons(syntax_tree& t, std::string ins_pos, node& cur_pos);
 	//печать дерева
 	void print(std::ofstream& fout, node, int);
-	//проверка хуйня
-	bool checker_insert(std::string, node&);
-	bool gg(node&);
 public:
 	//конструкторы
 	syntax_tree() { root = std::make_shared<node_tree>(node_tree("FUNCTION")); }

@@ -20,8 +20,10 @@ public:
 	void update_pos(char symbs);
 };
 
+//лексичексий анализатор
 class lex_analysator { 
 private:
+	//поля для определения принадлежности считанного объекта
 	std::vector<std::string> service_words = { "return", "int", "for" };
 	std::vector<char> operations = { '=', '+', '-' };
 	std::vector<char> brackets = { '(', ')' };
